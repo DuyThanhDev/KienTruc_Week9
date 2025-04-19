@@ -1,6 +1,6 @@
 const express = require('express');
-const axios = require('axios');
 const retry = require('async-retry');
+const httpClient = require('./http-client'); // Thay thế axios bằng httpClient
 
 const app = express();
 app.use(express.json());
@@ -29,25 +29,25 @@ app.post('/update-stock', async (req, res) => {
 
   product.stock -= quantity;
 
-  // Khai báo retryCount ở ngoài để có thể sử dụng trong cả khối try và catch
   let retryCount = 0;
   
   try {
     await retry(async (bail, attempt) => {
-      retryCount = attempt; // Gán giá trị cho biến đã khai báo bên ngoài
+      retryCount = attempt;
       console.log(`Attempt ${attempt} to connect to Shipping Service...`);
       try {
-        await axios.post('http://localhost:3001/ship-order', { orderId });
+        // Sử dụng httpClient thay vì axios
+        await httpClient.post('http://localhost:3001/ship-order', { orderId });
         console.log(`Attempt ${attempt}: Connection successful`);
       } catch (err) {
         console.log(`Attempt ${attempt}: Failed - ${err.message}`);
-        throw err; // rethrow để retry tiếp tục
+        throw err;
       }
-        }, {
+    }, {
       retries: 5,
       minTimeout: 3000,
-      maxTimeout: 3000, // Đảm bảo timeout luôn là 3000ms
-      factor: 1, // Không áp dụng backoff tăng dần
+      maxTimeout: 3000,
+      factor: 1,
       onRetry: (error) => {
         console.log(`Retrying after error: ${error.message}`);
       }

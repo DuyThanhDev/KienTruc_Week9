@@ -1,0 +1,70 @@
+{
+  "info": {
+    "name": "Sales Microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/products"
+      }
+    },
+    {
+      "name": "Update Stock",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/update-stock",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"productId\": 1, \"quantity\": 2, \"orderId\": 1 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Process Payment",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/process-payment",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"orderId\": 1, \"amount\": 1000 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Ship Order",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3001/ship-order",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"orderId\": 1 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Get Shipments",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3001/shipments"
+      }
+    }
+  ]
+}

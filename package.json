@@ -1,0 +1,15 @@
+{
+  "name": "microservices-sales-system",
+  "version": "1.0.0",
+  "description": "A simple microservices-based sales management system.",
+  "main": "server-a.js",
+  "scripts": {
+    "start:server-a": "node server-a.js",
+    "start:server-b": "node server-b.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.4.0",
+    "async-retry": "^1.3.3"
+  }
+}
